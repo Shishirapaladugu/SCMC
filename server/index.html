@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Urban Issue Detection</title>
+</head>
+<body>
+    <h1>Upload an Image</h1>
+    <form id="upload-form" enctype="multipart/form-data">
+        <input type="file" name="image" accept="image/*" required>
+        <button type="submit">Predict</button>
+    </form>
+
+    <h2 id="result"></h2>
+    <img id="preview" src="" alt="" style="max-width:300px; display:none; margin-top:10px;">
+
+    <script>
+        const form = document.getElementById("upload-form");
+        const result = document.getElementById("result");
+        const preview = document.getElementById("preview");
+
+        form.onsubmit = async (e) => {
+            e.preventDefault();
+            const data = new FormData(form);
+            const file = data.get("image");
+
+            // Show preview
+            preview.src = URL.createObjectURL(file);
+            preview.style.display = "block";
+
+            try {
+                const response = await fetch("/predict", {
+                    method: "POST",
+                    body: data
+                });
+
+                if (!response.ok) {
+                    result.innerText = "Error: " + response.statusText;
+                    return;
+                }
+
+                const json = await response.json();
+                result.innerText = "Predicted Category: " + json.category;
+            } catch (err) {
+                result.innerText = "Error: " + err.message;
+            }
+        };
+    </script>
+</body>
+</html>

@@ -1,16 +1,16 @@
 {
-  "name": "server",
+  "name": "scmsc-server",
   "version": "1.0.0",
-  "main": "index.js",
+  "description": "Server for SCMSC complaint management system",
+  "main": "server.js",
   "type": "module",
   "scripts": {
     "start": "node server.js",
-    "server": "nodemon server.js"
+    "dev": "nodemon server.js"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "description": "",
   "dependencies": {
     "bcryptjs": "^3.0.2",
     "cloudinary": "^2.7.0",
@@ -20,6 +20,10 @@
     "express": "^5.1.0",
     "jsonwebtoken": "^9.0.2",
     "mongoose": "^8.16.5",
+    "axios": "^1.4.0",
+    "form-data": "^4.0.0"
+  },
+  "devDependencies": {
     "nodemon": "^3.1.10"
   }
 }

@@ -1,18 +1,24 @@
-
 import express from 'express';
-const router = express.Router();
 import { protectRoute } from '../middleware/auth.js';
-
 import {
     createComplaint,
     getAllComplaints,
-    updateComplaintStatus,
-    getMyComplaints
+    getMyComplaints,
+    updateComplaintStatus
 } from '../controllers/complaintController.js';
 
-router.post('/', protectRoute, createComplaint);
-router.get('/', protectRoute, getAllComplaints);
+const router = express.Router();
+
+// Submit a new complaint
+router.post('/submit', protectRoute, createComplaint);
+
+// Get all complaints (for admin/staff)
+router.get('/all', protectRoute, getAllComplaints);
+
+// Get complaints of the logged-in user
 router.get('/my', protectRoute, getMyComplaints);
-router.put('/:id', protectRoute, updateComplaintStatus);
+
+// Update complaint status by ID
+router.patch('/:id/status', protectRoute, updateComplaintStatus);
 
 export default router;
